@@ -1,0 +1,53 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Price Prediction - ProvantageNGX AI</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #01400e; text-align: center; padding-top: 50px; }
+        .container { width: 60%; margin: auto; padding: 20px; background-color: #ffffff; border-radius: 10px; box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); }
+        h1 { color: #03791f; }
+        img { width: 200px; margin-bottom: 20px; }
+        input, button { padding: 10px; margin: 10px; border-radius: 5px; border: 1px solid #ccc; }
+        button { background-color: #28a745; color: rgb(255, 255, 255); cursor: pointer; }
+        button:hover { background-color: #218838; }
+        .result { margin-top: 30px; padding: 15px; background-color: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 5px; font-size: 18px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="ProvantageNGX AI Logo">
+        <h1>Jaiz-Bank Stock Price-Prediction</h1>
+        <p>Enter the following values to predict the next day's stock price:</p>
+        <form action="/predict" method="post">
+            <label for="price">Closing Price:</label>
+            <input type="text" id="price" name="Price" required><br>
+
+            <label for="ma5">5-Day Moving Average:</label>
+            <input type="text" id="ma5" name="MA_5" required><br>
+
+            <label for="ma10">10-Day Moving Average:</label>
+            <input type="text" id="ma10" name="MA_10" required><br>
+
+            <label for="lag1">Previous Day Price (Lag_1):</label>
+            <input type="text" id="lag1" name="Lag_1" required><br>
+
+            <label for="lag2">Price from 2 Days Ago (Lag_2):</label>
+            <input type="text" id="lag2" name="Lag_2" required><br>
+
+            <label for="daily_return">Daily Return (%):</label>
+            <input type="text" id="daily_return" name="Daily_Return" required><br>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        {% if predicted_price is not none %}
+        <div class="result">
+            Predicted Stock Price for the Next Day: ₦{{ predicted_price }}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
